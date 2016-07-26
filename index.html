@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nearby Pokemon</title>
+  <style>
+	#grid {
+		height: 100%;
+	}
+	.cell {
+		width: 33%;
+		height: 33%;
+		float: left;
+	}
+  </style>
+</head>
+<body>
+<div id="grid">
+	<div class="cell"><center><img id="i0"/><br><img id="f0"/></center></div>
+	<div class="cell"><center><img id="i1"/><br><img id="f1"/></center></div>
+	<div class="cell"><center><img id="i2"/><br><img id="f2"/></center></div>
+	<div class="cell"><center><img id="i3"/><br><img id="f3"/></center></div>
+	<div class="cell"><center><img id="i4"/><br><img id="f4"/></center></div>
+	<div class="cell"><center><img id="i5"/><br><img id="f5"/></center></div>
+	<div class="cell"><center><img id="i6"/><br><img id="f6"/></center></div>
+	<div class="cell"><center><img id="i7"/><br><img id="f7"/></center></div>
+	<div class="cell"><center><img id="i8"/><br><img id="f8"/></center></div>
+</grid>
+</body>
+<script src="bundle.js"></script>
+<script>
+navigator.geolocation.getCurrentPosition( function(position) {
+
+var coords = {
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude
+};
+
+pokegoScan(coords, function(err, pokemon) {
+    if (err) throw err;
+	
+	var i = pokemon.length - 1;
+	if (i > 8) i = 8;
+    for (var q = 0; q<=i; q++)
+	{
+		if (pokemon[q].distance <= 200)
+		{
+			console.log(pokemon[q].distance);
+		
+			var id = "i" + q;
+			var num = "";
+			if (pokemon[q].pokemonId < 10) num = "00" + pokemon[q].pokemonId;
+			else if (pokemon[q].pokemonId < 100) num = "0" + pokemon[q].pokemonId;
+			else num = pokemon[q].pokemonId;
+			document.getElementById(id).src = "http://serebii.net/pokemongo/pokemon/" + num + ".png";
+		
+			id = "f" + q;
+			if (pokemon[q].distance < 40) {}
+			else if (pokemon[q].distance <= 60) document.getElementById(id).src = "http://i.imgur.com/dSnoO2g.png";
+			else if (pokemon[q].distance <= 90) document.getElementById(id).src = "http://i.imgur.com/mXRcTdJ.png";
+			else document.getElementById(id).src = "http://i.imgur.com/BZRfQCW.png";
+		}
+	}
+})});
+</script>
+</html>
