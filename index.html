@@ -69,7 +69,11 @@ function scan(){
 		};
 		
 		pokegoScan(coords, function(err, pokemon) {
-			if (err) throw err; 
+			if (err) 
+			{
+				document.getElementById("status").innerHTML = "Scan Failed"
+				throw err;
+			}
 
 			document.getElementById("status").innerHTML = "Loading Results";
 			
@@ -108,7 +112,7 @@ function scan(){
 			document.getElementById("loading").style.visibility = "hidden";
 		});
 		
-		setTimeout('window.location.reload();', 31000);
+		setTimeout('window.location.reload();', 45000);
 	});
 }
 
