@@ -52,7 +52,7 @@
 		<div class="cell"><center><img id="i8"/><br><img id="f8"/></center></div>
 	</div>
 	<div id="footer">
-		<div align="right"><a href="https://pokevision.com">Powered by <img src="images/pokevision.png" style="width:30px; height: 30px;"/> POKE<span style="color:#bd3736;">VISION</span></a></span>
+		<div id="status" align="left" style="float: left;">Getting Location</div><div align="right"><a href="https://pokevision.com">Powered by <img src="images/pokevision.png" style="width:30px; height: 30px;"/> POKE<span style="color:#bd3736;">VISION</span></a></span>
 	</div>
 </body>
 <script src="browserifiedpokego-scan.js"></script>
@@ -61,6 +61,7 @@ function scan(){
 	navigator.geolocation.getCurrentPosition( function(position) {
 		
 		document.getElementById("loading").style.visibility = "visible";
+		document.getElementById("status").innerHTML = "Scanning for Pokemon";
 		
 		var coords = {
 			latitude: position.coords.latitude,
@@ -70,6 +71,8 @@ function scan(){
 		pokegoScan(coords, function(err, pokemon) {
 			if (err) throw err; 
 
+			document.getElementById("status").innerHTML = "Loading Results";
+			
 			var nearbyPokemon = 0;
 		
 			for (var current = 0; current<pokemon.length; current++)
@@ -98,6 +101,9 @@ function scan(){
 				}
 				else break;
 			}
+			
+			if (nearbyPokemon == 0) document.getElementById("status").innerHTML = "No Pokemon Found :\(";
+			else document.getElementById("status").innerHTML = "Pokemon Found!";
 			
 			document.getElementById("loading").style.visibility = "hidden";
 		});
