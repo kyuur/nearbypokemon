@@ -26,7 +26,7 @@
 <body>
 	<center>NEARBY</center>
 	<hr>
-	<center><img id="loading" src="images/poke.gif" style="visibility:hidden;"/></center>
+	<center><img id="loading" src="./images/poke.gif" style="visibility:hidden;"/></center>
 	<div id="grid">
 		<div class="cell"><center><img id="i0"/><br><img id="f0" style="visibility:hidden;"/></center></div>
 		<div class="cell"><center><img id="i1"/><br><img id="f1" style="visibility:hidden;"/></center></div>
@@ -69,12 +69,12 @@ function scan(){
 							if (pokemon[current].pokemonId < 10) num = "00" + pokemon[current].pokemonId;
 							else if (pokemon[current].pokemonId < 100) num = "0" + pokemon[current].pokemonId;
 							else num = pokemon[current].pokemonId;
-							document.getElementById("i" + nearbyPokemon).src = "images/" + num + ".png";
+							document.getElementById("i" + nearbyPokemon).src = "./images/" + num + ".png";
 
 							if (pokemon[current].distance < 40) {}
-							else if (pokemon[current].distance <= 60) document.getElementById(id).src = "images/1foot.png";
-							else if (pokemon[current].distance <= 90) document.getElementById(id).src = "images/2feet.png";
-							else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
+							else if (pokemon[current].distance <= 60) document.getElementById(id).src = "./images/1foot.png";
+							else if (pokemon[current].distance <= 90) document.getElementById(id).src = "./images/2feet.png";
+							else document.getElementById("f" + nearbyPokemon).src = "./images/3feet.png";
 							
 							nearbyPokemon++;
 						}
@@ -84,12 +84,12 @@ function scan(){
 						if (pokemon[current].pokemonId < 10) num = "00" + pokemon[current].pokemonId;
 						else if (pokemon[current].pokemonId < 100) num = "0" + pokemon[current].pokemonId;
 						else num = pokemon[current].pokemonId;
-						document.getElementById("i" + nearbyPokemon).src = "images/" + num + ".png";
+						document.getElementById("i" + nearbyPokemon).src = "./images/" + num + ".png";
 
 						if (pokemon[current].distance < 40) {}
-						else if (pokemon[current].distance <= 60) document.getElementById(id).src = "images/1foot.png";
-						else if (pokemon[current].distance <= 90) document.getElementById(id).src = "images/2feet.png";
-						else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
+						else if (pokemon[current].distance <= 60) document.getElementById(id).src = "./images/1foot.png";
+						else if (pokemon[current].distance <= 90) document.getElementById(id).src = "./images/2feet.png";
+						else document.getElementById("f" + nearbyPokemon).src = "./images/3feet.png";
 						
 						nearbyPokemon++;
 					}	
