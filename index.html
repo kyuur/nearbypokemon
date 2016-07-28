@@ -64,24 +64,7 @@ function scan(){
 				{
 					if (nearbyPokemon < 9)
 					{
-						if (current > 0)
-						{
-							if (pokemon[current].distance != pokemon[current-1].distance || pokemon[current].name != pokemon[current-1].name)
-							{
-								if (pokemon[current].pokemonId < 10) num = "00" + pokemon[current].pokemonId;
-								else if (pokemon[current].pokemonId < 100) num = "0" + pokemon[current].pokemonId;
-								else num = pokemon[current].pokemonId;
-								document.getElementById("i" + nearbyPokemon).src = "images/" + num + ".png";
-
-								if (pokemon[current].distance < 40) {}
-								else if (pokemon[current].distance <= 60) document.getElementById(id).src = "images/1foot.png";
-								else if (pokemon[current].distance <= 90) document.getElementById(id).src = "images/2feet.png";
-								else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
-								
-								nearbyPokemon++;
-							}
-						}
-						else
+						if (current == 0 || pokemon[current].distance != pokemon[current-1].distance || pokemon[current].name != pokemon[current-1].name)
 						{
 							if (pokemon[current].pokemonId < 10) num = "00" + pokemon[current].pokemonId;
 							else if (pokemon[current].pokemonId < 100) num = "0" + pokemon[current].pokemonId;
@@ -94,7 +77,7 @@ function scan(){
 							else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
 							
 							nearbyPokemon++;
-						}	
+						}
 					} else break;
 				}
 				else break;
@@ -102,11 +85,11 @@ function scan(){
 			
 			document.getElementById("loading").style.visibility = "hidden";
 		});
-			
+		
+		setTimeout('window.location.reload();', 31000);
 	});
 }
 
 scan();
-setTimeout('window.location.reload();', 30000);
 </script>
 </html>
