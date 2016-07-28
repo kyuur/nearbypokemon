@@ -105,14 +105,13 @@ function scan(){
 					} else break;
 				}
 				
-				if (nearbyPokemon == 0) document.getElementById("status").innerHTML = "No Pokemon Found :\(";
-				else document.getElementById("status").innerHTML = "Pokemon Found!";
+				document.getElementById("status").innerHTML = nearbyPokemon + " Pokemon Found";
 			}
 			
 			document.getElementById("loading").style.visibility = "hidden";
 			setTimeout('window.location.reload();', 30000);	
 		});
-	});
+	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; }, { enableHighAccuracy: false, timeout: Infinity, maximumAge: 10000 } );
 }
 
 scan();
