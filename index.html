@@ -52,15 +52,16 @@ function scan(){
 		};
 		
 		pokegoScan(coords, function(err, pokemon) {
-			if (err) { throw err; }
-			else
+			if (err) throw err; 
+
+			var nearbyPokemon = 0;
+		
+			for (var current = 0; current<pokemon.length; current++)
 			{
-				var nearbyPokemon = 0;
+				console.log(current + ": " + pokemon[current].name + " is " + pokemon[current].distance + "m away.");
 			
-				for (var current = 0; current<pokemon.length; current++)
+				if (pokemon[current].distance <= 250)
 				{
-					console.log(current + ": " + pokemon[current].name + " is " + pokemon[current].distance + "m away.");
-				
 					if (nearbyPokemon < 9)
 					{
 						if (current > 0)
@@ -95,35 +96,16 @@ function scan(){
 							nearbyPokemon++;
 						}	
 					}
-
 				}
-				
-				for (var i = 0; i<nearbyPokemon; i++)
-				{
-					var id = "i" + i;
-					document.getElementById(id).style.visibility = "visible";
-					
-					id = "f" + i;
-					document.getElementById(id).style.visibility = "visible";				
-				}
-				
-				for (nearbyPokemon; nearbyPokemon<9; nearbyPokemon++)
-				{
-					var id = "i" + nearbyPokemon;
-					document.getElementById(id).style.visibility = "hidden";
-					
-					id = "f" + nearbyPokemon;
-					document.getElementById(id).style.visibility = "hidden";
-				}
-				
-				document.getElementById("loading").style.visibility = "hidden";
 			}
+			
+			document.getElementById("loading").style.visibility = "hidden";
 		});
 			
 	});
 }
 
 scan();
-setInterval(scan, 31000);
+setTimeout('window.location.reload();', 30000);
 </script>
 </html>
