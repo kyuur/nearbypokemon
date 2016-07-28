@@ -21,10 +21,23 @@
 		height: 33.333%;
 		float: left;
 	}
+	#footer {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		padding: 1rem;
+		background-color: #efefef;
+		font-size: 36px;
+	}
+	a {
+		text-decoration: none;
+		color: #445956;
+	}
   </style>
 </head>
 <body>
-	<center>NEARBY</center>
+	<center><a href=".">NEARBY</a></center>
 	<hr>
 	<center><img id="loading" src="images/poke.gif" style="visibility:hidden;"/></center>
 	<div id="grid">
@@ -37,6 +50,9 @@
 		<div class="cell"><center><img id="i6"/><br><img id="f6"/></center></div>
 		<div class="cell"><center><img id="i7"/><br><img id="f7"/></center></div>
 		<div class="cell"><center><img id="i8"/><br><img id="f8"/></center></div>
+	</div>
+	<div id="footer">
+		<div align="right"><a href="https://pokevision.com">Powered by <img src="images/pokevision.png" style="width:30px; height: 30px;"/> POKE<span style="color:#bd3736;">VISION</span></a></span>
 	</div>
 </body>
 <script src="browserifiedpokego-scan.js"></script>
