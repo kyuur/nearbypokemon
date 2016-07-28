@@ -117,10 +117,25 @@ function scan(){
 			document.getElementById("loading").style.visibility = "hidden";
 		});
 		
+<<<<<<< HEAD
 	});
 }
 
 scan();
 setInterval(scan, 30000);
+=======
+			id = "f" + q;
+			if (pokemon[q].distance < 40) {}
+			else if (pokemon[q].distance <= 60) document.getElementById(id).src = "http://i.imgur.com/dSnoO2g.png";
+			else if (pokemon[q].distance <= 90) document.getElementById(id).src = "http://i.imgur.com/mXRcTdJ.png";
+			else document.getElementById(id).src = "http://i.imgur.com/BZRfQCW.png";
+		}
+	}
+})
+	
+	setTimeout('window.location.reload();', 30000);
+	
+});
+>>>>>>> origin/gh-pages
 </script>
 </html>
