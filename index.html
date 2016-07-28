@@ -68,12 +68,13 @@ function scan(){
 			longitude: position.coords.longitude
 		};
 		
-		pokegoScan(coords, function(err, pokemon) {
+		pokegoScan(coords, {distance: 250}, function(err, pokemon) {
 			if (err) 
 			{
-				document.getElementById("status").innerHTML = "Scan Failed"
-				setTimeout('window.location.reload();', 1000);
-				throw err;
+				document.getElementById("status").innerHTML = err;
+				
+				document.getElementById("loading").style.visibility = "hidden";
+				setTimeout('window.location.reload();', 10000);	
 			}
 			else
 			{
@@ -84,37 +85,32 @@ function scan(){
 				for (var current = 0; current<pokemon.length; current++)
 				{
 					console.log(current + ": " + pokemon[current].name + " is " + pokemon[current].distance + "m away.");
-				
-					if (pokemon[current].distance <= 250)
+					
+					if (nearbyPokemon < 9)
 					{
-						if (nearbyPokemon < 9)
+						if (current == 0 || pokemon[current].distance != pokemon[current-1].distance || pokemon[current].name != pokemon[current-1].name)
 						{
-							if (current == 0 || pokemon[current].distance != pokemon[current-1].distance || pokemon[current].name != pokemon[current-1].name)
-							{
-								if (pokemon[current].pokemonId < 10) num = "00" + pokemon[current].pokemonId;
-								else if (pokemon[current].pokemonId < 100) num = "0" + pokemon[current].pokemonId;
-								else num = pokemon[current].pokemonId;
-								document.getElementById("i" + nearbyPokemon).src = "images/" + num + ".png";
+							if (pokemon[current].pokemonId < 10) num = "00" + pokemon[current].pokemonId;
+							else if (pokemon[current].pokemonId < 100) num = "0" + pokemon[current].pokemonId;
+							else num = pokemon[current].pokemonId;
+							document.getElementById("i" + nearbyPokemon).src = "images/" + num + ".png";
 
-								if (pokemon[current].distance < 40) {}
-								else if (pokemon[current].distance <= 60) document.getElementById(id).src = "images/1foot.png";
-								else if (pokemon[current].distance <= 90) document.getElementById(id).src = "images/2feet.png";
-								else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
-								
-								nearbyPokemon++;
-							}
-						} else break;
-					}
-					else break;
+							if (pokemon[current].distance < 40) {}
+							else if (pokemon[current].distance <= 60) document.getElementById(id).src = "images/1foot.png";
+							else if (pokemon[current].distance <= 90) document.getElementById(id).src = "images/2feet.png";
+							else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
+							
+							nearbyPokemon++;
+						}
+					} else break;
 				}
 				
 				if (nearbyPokemon == 0) document.getElementById("status").innerHTML = "No Pokemon Found :\(";
 				else document.getElementById("status").innerHTML = "Pokemon Found!";
-				
-				document.getElementById("loading").style.visibility = "hidden";
-				
-				setTimeout('window.location.reload();', 30000);			
 			}
+			
+			document.getElementById("loading").style.visibility = "hidden";
+			setTimeout('window.location.reload();', 30000);	
 		});
 	});
 }
