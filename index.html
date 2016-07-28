@@ -16,8 +16,8 @@
 		padding: 50px;
 	}
 	.cell {
-		width: 33%;
-		height: 33%;
+		width: 33.333%;
+		height: 33.333%;
 		float: left;
 	}
   </style>
@@ -25,52 +25,102 @@
 <body>
 	<center>NEARBY</center>
 	<hr>
-<div id="grid">
-	<div class="cell"><center><img id="i0"/><br><img id="f0"/></center></div>
-	<div class="cell"><center><img id="i1"/><br><img id="f1"/></center></div>
-	<div class="cell"><center><img id="i2"/><br><img id="f2"/></center></div>
-	<div class="cell"><center><img id="i3"/><br><img id="f3"/></center></div>
-	<div class="cell"><center><img id="i4"/><br><img id="f4"/></center></div>
-	<div class="cell"><center><img id="i5"/><br><img id="f5"/></center></div>
-	<div class="cell"><center><img id="i6"/><br><img id="f6"/></center></div>
-	<div class="cell"><center><img id="i7"/><br><img id="f7"/></center></div>
-	<div class="cell"><center><img id="i8"/><br><img id="f8"/></center></div>
-</grid>
+	<center><img id="loading" src="images/poke.gif" style="visibility:hidden;"/></center>
+	<div id="grid">
+		<div class="cell"><center><img id="i0"/><br><img id="f0" style="visibility:hidden;"/></center></div>
+		<div class="cell"><center><img id="i1"/><br><img id="f1" style="visibility:hidden;"/></center></div>
+		<div class="cell"><center><img id="i2"/><br><img id="f2" style="visibility:hidden;"/></center></div>
+		<div class="cell"><center><img id="i3"/><br><img id="f3" style="visibility:hidden;"/></center></div>
+		<div class="cell"><center><img id="i4"/><br><img id="f4" style="visibility:hidden;"/></center></div>
+		<div class="cell"><center><img id="i5"/><br><img id="f5" style="visibility:hidden;"/></center></div>
+		<div class="cell"><center><img id="i6"/><br><img id="f6" style="visibility:hidden;"/></center></div>
+		<div class="cell"><center><img id="i7"/><br><img id="f7" style="visibility:hidden;"/></center></div>
+		<div class="cell"><center><img id="i8"/><br><img id="f8" style="visibility:hidden;"/></center></div>
+	</div>
 </body>
-<script src="bundle.js"></script>
+<script src="browserifiedpokego-scan.js"></script>
 <script>
-navigator.geolocation.getCurrentPosition( function(position) {
-
-var coords = {
-    latitude: position.coords.latitude,
-    longitude: position.coords.longitude
-};
-
-pokegoScan(coords, function(err, pokemon) {
-    if (err) throw err;
-	
-	var i = pokemon.length - 1;
-	if (i > 8) i = 8;
-    for (var q = 0; q<=i; q++)
-	{
-		if (pokemon[q].distance <= 200)
-		{
-			console.log(pokemon[q].distance);
+function scan(){
+	navigator.geolocation.getCurrentPosition( function(position) {
 		
-			var id = "i" + q;
-			var num = "";
-			if (pokemon[q].pokemonId < 10) num = "00" + pokemon[q].pokemonId;
-			else if (pokemon[q].pokemonId < 100) num = "0" + pokemon[q].pokemonId;
-			else num = pokemon[q].pokemonId;
-			document.getElementById(id).src = "http://serebii.net/pokemongo/pokemon/" + num + ".png";
+		document.getElementById("loading").style.visibility = "visible";
 		
-			id = "f" + q;
-			if (pokemon[q].distance < 40) {}
-			else if (pokemon[q].distance <= 60) document.getElementById(id).src = "http://i.imgur.com/dSnoO2g.png";
-			else if (pokemon[q].distance <= 90) document.getElementById(id).src = "http://i.imgur.com/mXRcTdJ.png";
-			else document.getElementById(id).src = "http://i.imgur.com/BZRfQCW.png";
-		}
-	}
-})});
+		var coords = {
+			latitude: position.coords.latitude,
+			longitude: position.coords.longitude
+		};
+		
+		pokegoScan(coords, function(err, pokemon) {
+			if (err) throw err;
+			
+			var nearbyPokemon = 0;
+			
+			for (var current = 0; current<pokemon.length; current++)
+			{
+				console.log(current + ": " + pokemon[current].name + " is " + pokemon[current].distance + "m away.");
+			
+				if (nearbyPokemon < 9)
+				{
+					if (current > 0)
+					{
+						if (pokemon[current].distance != pokemon[current-1].distance || pokemon[current].name != pokemon[current-1].name)
+						{
+							if (pokemon[current].pokemonId < 10) num = "00" + pokemon[current].pokemonId;
+							else if (pokemon[current].pokemonId < 100) num = "0" + pokemon[current].pokemonId;
+							else num = pokemon[current].pokemonId;
+							document.getElementById("i" + nearbyPokemon).src = "images/" + num + ".png";
+
+							if (pokemon[current].distance < 40) {}
+							else if (pokemon[current].distance <= 60) document.getElementById(id).src = "images/1foot.png";
+							else if (pokemon[current].distance <= 90) document.getElementById(id).src = "images/2feet.png";
+							else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
+							
+							nearbyPokemon++;
+						}
+					}
+					else
+					{
+						if (pokemon[current].pokemonId < 10) num = "00" + pokemon[current].pokemonId;
+						else if (pokemon[current].pokemonId < 100) num = "0" + pokemon[current].pokemonId;
+						else num = pokemon[current].pokemonId;
+						document.getElementById("i" + nearbyPokemon).src = "images/" + num + ".png";
+
+						if (pokemon[current].distance < 40) {}
+						else if (pokemon[current].distance <= 60) document.getElementById(id).src = "images/1foot.png";
+						else if (pokemon[current].distance <= 90) document.getElementById(id).src = "images/2feet.png";
+						else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
+						
+						nearbyPokemon++;
+					}	
+				}
+
+			}
+			
+			for (var i = 0; i<nearbyPokemon; i++)
+			{
+				var id = "i" + i;
+				document.getElementById(id).style.visibility = "visible";
+				
+				id = "f" + i;
+				document.getElementById(id).style.visibility = "visible";				
+			}
+			
+			for (nearbyPokemon; nearbyPokemon<9; nearbyPokemon++)
+			{
+				var id = "i" + nearbyPokemon;
+				document.getElementById(id).style.visibility = "hidden";
+				
+				id = "f" + nearbyPokemon;
+				document.getElementById(id).style.visibility = "hidden";
+			}
+			
+			document.getElementById("loading").style.visibility = "hidden";
+		});
+		
+	});
+}
+
+scan();
+setInterval(scan, 30000);
 </script>
 </html>
