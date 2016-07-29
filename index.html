@@ -58,6 +58,8 @@
 <script src="browserifiedpokego-scan.js"></script>
 <script>
 function scan(){
+	document.getElementById("status").innerHTML = "Getting Location";
+
 	navigator.geolocation.getCurrentPosition( function(position) {
 		
 		document.getElementById("loading").style.visibility = "visible";
@@ -74,10 +76,11 @@ function scan(){
 				document.getElementById("status").innerHTML = err;
 				
 				document.getElementById("loading").style.visibility = "hidden";
-				setTimeout('window.location.reload();', 5000);	
+				setTimeout(scan, 2000);	
 			}
 			else
 			{
+				document.getElementById("grid").innerHTML = "<div class=\"cell\"><center><img id=\"i0\"/><br><img id=\"f0\"/></center></div><div class=\"cell\"><center><img id=\"i1\"/><br><img id=\"f1\"/></center></div><div class=\"cell\"><center><img id=\"i2\"/><br><img id=\"f2\"/></center></div><div class=\"cell\"><center><img id=\"i3\"/><br><img id=\"f3\"/></center></div><div class=\"cell\"><center><img id=\"i4\"/><br><img id=\"f4\"/></center></div><div class=\"cell\"><center><img id=\"i5\"/><br><img id=\"f5\"/></center></div><div class=\"cell\"><center><img id=\"i6\"/><br><img id=\"f6\"/></center></div><div class=\"cell\"><center><img id=\"i7\"/><br><img id=\"f7\"/></center></div><div class=\"cell\"><center><img id=\"i8\"/><br><img id=\"f8\"/></center></div>";
 				document.getElementById("status").innerHTML = "Loading Results";
 				
 				var nearbyPokemon = 0;
@@ -109,7 +112,7 @@ function scan(){
 			}
 			
 			document.getElementById("loading").style.visibility = "hidden";
-			setTimeout('window.location.reload();', 30000);	
+			setTimeout(scan, 30000);	
 		});
 	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; }, { enableHighAccuracy: false, timeout: 60000, maximumAge: 10000 } );
 }
