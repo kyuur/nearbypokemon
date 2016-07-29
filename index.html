@@ -79,7 +79,7 @@ function scan(){
 				document.getElementById("status").innerHTML = err;
 				
 				document.getElementById("loading").style.visibility = "hidden";
-				timeout = setTimeout(scan, 2000);	
+				timeout = setTimeout("scan();", 2000);	
 			}
 			else
 			{
@@ -115,7 +115,7 @@ function scan(){
 			}
 			
 			document.getElementById("loading").style.visibility = "hidden";
-			timeout = setTimeout(scan, 30000);	
+			timeout = setTimeout("scan();", 30000);	
 		});
 	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; }, { enableHighAccuracy: false, timeout: 60000, maximumAge: 10000 } );
 }
