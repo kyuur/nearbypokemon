@@ -96,8 +96,8 @@ function scan(){
 							document.getElementById("i" + nearbyPokemon).src = "images/" + num + ".png";
 
 							if (pokemon[current].distance < 40) {}
-							else if (pokemon[current].distance <= 60) document.getElementById(id).src = "images/1foot.png";
-							else if (pokemon[current].distance <= 90) document.getElementById(id).src = "images/2feet.png";
+							else if (pokemon[current].distance <= 60) document.getElementById("f" + nearbyPokemon).src = "images/1foot.png";
+							else if (pokemon[current].distance <= 90) document.getElementById("f" + nearbyPokemon).src = "images/2feet.png";
 							else document.getElementById("f" + nearbyPokemon).src = "images/3feet.png";
 							
 							nearbyPokemon++;
