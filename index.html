@@ -57,7 +57,10 @@
 </body>
 <script src="browserifiedpokego-scan.js"></script>
 <script>
+var timeout;
+
 function scan(){
+	clearTimeout(timeout);
 	document.getElementById("status").innerHTML = "Getting Location";
 
 	navigator.geolocation.getCurrentPosition( function(position) {
@@ -76,7 +79,7 @@ function scan(){
 				document.getElementById("status").innerHTML = err;
 				
 				document.getElementById("loading").style.visibility = "hidden";
-				setTimeout(scan, 5000);	
+				timeout = setTimeout(scan, 2000);	
 			}
 			else
 			{
@@ -112,7 +115,7 @@ function scan(){
 			}
 			
 			document.getElementById("loading").style.visibility = "hidden";
-			setTimeout(scan, 30000);	
+			timeout = setTimeout(scan, 30000);	
 		});
 	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; }, { enableHighAccuracy: false, timeout: 60000, maximumAge: 10000 } );
 }
