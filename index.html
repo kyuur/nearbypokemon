@@ -117,7 +117,7 @@ function scan(){
 			document.getElementById("loading").style.visibility = "hidden";
 			timeout = setTimeout("scan();", 30000);	
 		});
-	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; }, { enableHighAccuracy: false, timeout: 60000, maximumAge: 10000 } );
+	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; }, { enableHighAccuracy: true, timeout: 60000, maximumAge: 10000 } );
 }
 
 scan();
