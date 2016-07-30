@@ -14,10 +14,16 @@ function scan(){
 		pokegoScan(coords, {distance: 500}, function(err, pokemon) {
 			if (err) 
 			{
-				document.getElementById("status").innerHTML = err;
-				
-				document.getElementById("loading").style.visibility = "hidden";
-				setTimeout("scan();", 2000);	
+				if (err.message = "You already scanned recently.")
+				{
+					setTimeout("scan();", 2000);
+				}
+				else
+				{
+					document.getElementById("status").innerHTML = err.message;
+					document.getElementById("loading").style.visibility = "hidden";
+					setTimeout("scan();", 5000);
+				}	
 			}
 			else
 			{
@@ -50,10 +56,9 @@ function scan(){
 				}
 				
 				document.getElementById("status").innerHTML = nearbyPokemon + " Pokemon Found";
+				document.getElementById("loading").style.visibility = "hidden";
+				setTimeout("scan();", 40000);
 			}
-			
-			document.getElementById("loading").style.visibility = "hidden";
-			setTimeout("scan();", 40000);	
 		});
-	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; timeout = setTimeout("scan();", 2000);	}, { enableHighAccuracy: true, timeout: 60000, maximumAge: 10000 } );
+	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; timeout = setTimeout("scan();", 5000);	}, { enableHighAccuracy: true, timeout: 60000, maximumAge: 10000 } );
 }
