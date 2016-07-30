@@ -1,0 +1,29 @@
+  	body {
+  	font-family: 'Lato', sans-serif;
+	font-size: 48px;
+	color: #445956;
+	padding: 20px;
+	}
+	
+	#grid {
+		height: 100%;
+		padding: 50px;
+	}
+	.cell {
+		width: 33.333%;
+		height: 33.333%;
+		float: left;
+	}
+	#footer {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		padding: 1rem;
+		background-color: #efefef;
+		font-size: 36px;
+	}
+	a {
+		text-decoration: none;
+		color: #445956;
+	}
