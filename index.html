@@ -73,7 +73,7 @@ function scan(){
 			longitude: position.coords.longitude
 		};
 		
-		pokegoScan(coords, {distance: 250}, function(err, pokemon) {
+		pokegoScan(coords, {distance: 500}, function(err, pokemon) {
 			if (err) 
 			{
 				document.getElementById("status").innerHTML = err;
@@ -115,7 +115,7 @@ function scan(){
 			}
 			
 			document.getElementById("loading").style.visibility = "hidden";
-			timeout = setTimeout("scan();", 30000);	
+			timeout = setTimeout("scan();", 40000);	
 		});
 	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; timeout = setTimeout("scan();", 2000);	}, { enableHighAccuracy: true, timeout: 60000, maximumAge: 10000 } );
 }
