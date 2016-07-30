@@ -1,4 +1,5 @@
-function scan(){
+function scan( reload ){
+	clearTimeout(reload);
 	document.getElementById("status").innerHTML = "Getting Location";
 
 	navigator.geolocation.getCurrentPosition( function(position) {
@@ -16,13 +17,13 @@ function scan(){
 			{
 				if (err.message = "You already scanned recently.")
 				{
-					setTimeout("scan();", 2000);
+					reload = setTimeout("scan();", 5000);
 				}
 				else
 				{
 					document.getElementById("status").innerHTML = err.message;
 					document.getElementById("loading").style.visibility = "hidden";
-					setTimeout("scan();", 5000);
+					reload = setTimeout("scan();", 5000);
 				}	
 			}
 			else
@@ -57,8 +58,8 @@ function scan(){
 				
 				document.getElementById("status").innerHTML = nearbyPokemon + " Pokemon Found";
 				document.getElementById("loading").style.visibility = "hidden";
-				setTimeout("scan();", 40000);
+				reload = setTimeout("scan();", 40000);
 			}
 		});
-	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; timeout = setTimeout("scan();", 5000);	}, { enableHighAccuracy: true, timeout: 60000, maximumAge: 10000 } );
+	}, function(error) { document.getElementById("status").innerHTML = "Location Error"; reload = setTimeout("scan();", 5000);	}, { enableHighAccuracy: true, timeout: 60000, maximumAge: 10000 } );
 }
